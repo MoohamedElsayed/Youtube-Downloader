@@ -1,33 +1,36 @@
 from pytube import YouTube
 
-# Function to extract and download mp3 audios from youtube urls
-def download_mp3(url):
+# Function download the specified youtube url weather audio or video
+def downloadURL(url, type):
 
     # Creating a YouTube object for the desired url
     yt = YouTube(url)
     video_title = yt.title
 
+    if type == 'audio':
     # Getting the best audio stream
-    best_stream =  yt.streams.get_audio_only(subtype='mp4')
+        best_stream =  yt.streams.get_audio_only(subtype='mp4')
+    # Fetting the best video stream
+    elif type== 'video':
+        best_stream =  yt.streams.get_highest_resolution()
 
-
+    extention = '.mp3' if type == 'audio' else '.mp4'
     # Downloading the best Stream if found
     if best_stream: 
-        name = video_title + '.mp3'
+        name = video_title + extention
         best_stream.download(filename=name)
         print(video_title+' '+ 'Downloaded succesfully')
     else:
-        print('Couldn\'t find audio to extract')
+        print('Couldn\'t find a stream to download. Please try again.')
     
 
-
 # Function to parse a txt file that contains urls of videos 
-def file_parser(path):
+def file_parser(path, type):
 
     # Reading each line in the file and downloading it
     with open(path,'r') as file:
         for url in file:
-            download_mp3(url)
+            downloadURL(url, type)
 
 
-file_parser('/home/mohamed/Desktop/Youtube-MP3-Downloader/videos.txt')
+#downloadURL('https://www.youtube.com/watch?v=7bdPJ48gdtg', 'video')
