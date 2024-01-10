@@ -1,4 +1,4 @@
-from pytube import YouTube
+from pytube import YouTube, Playlist
 
 # Function download the specified youtube url weather audio or video
 def downloadURL(url, type):
@@ -33,4 +33,11 @@ def file_parser(path, type):
             downloadURL(url, type)
 
 
-#downloadURL('https://www.youtube.com/watch?v=7bdPJ48gdtg', 'video')
+def playlist_parser(url, type):
+    pl = Playlist(url)
+    for video_url in pl.video_urls:
+        downloadURL(video_url, type)
+
+
+
+#playlist_parser('https://www.youtube.com/playlist?list=PLLVDNsvw7fOdFLZz6c7dOvmD3YSUHdRWm', 'video')

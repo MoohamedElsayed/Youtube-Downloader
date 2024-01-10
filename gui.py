@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QComboBox, QLineEdit, QPushButton, QFileDialog
 from PyQt5.QtWidgets import QHBoxLayout, QLabel, QVBoxLayout
 import sys
 from pathlib import Path
-from downloader import downloadURL
+from downloader import downloadURL, playlist_parser, file_parser
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -76,14 +76,15 @@ class MainWindow(QMainWindow):
 
         playlist_label = QLabel('Download a playlist')
 
-        playlist_url_widget = QLineEdit()
-        playlist_url_widget.setPlaceholderText('Please Enter the Youtube playlist URL')
+        self.playlist_url_widget = QLineEdit()
+        self.playlist_url_widget.setPlaceholderText('Please Enter the Youtube playlist URL')
 
         playlist_download_button = QPushButton()
         playlist_download_button.setText('Download')
+        playlist_download_button.clicked.connect(self.playlistDownloadClicked)
 
         download_playlist_layout.addWidget(playlist_label)
-        download_playlist_layout.addWidget(playlist_url_widget)
+        download_playlist_layout.addWidget(self.playlist_url_widget)
         download_playlist_layout.addWidget(playlist_download_button)
 
         return download_playlist_layout
@@ -97,7 +98,7 @@ class MainWindow(QMainWindow):
 
         file_download_button = QPushButton()
         file_download_button.setText('Download')
-
+        file_download_button.clicked.connect(self.fileDownloadClicked)
 
 
         # file selection
@@ -142,6 +143,46 @@ class MainWindow(QMainWindow):
 
         except:
             msg = MassageWindow(title = 'Single Url Downloader',
+                                text="Failed to download.",
+                                button = 'Abort',
+                                icon='Critical')
+            msg.exec_()
+
+    def playlistDownloadClicked(self):
+        type = self.types_widget.currentText()
+        url = self.playlist_url_widget.text()
+        try:
+            playlist_parser(url,type)
+
+            msg = MassageWindow(title = 'Playlist Downloader',
+                                text="Succesfully downloaded.",
+                                button = 'Ok',
+                                icon='Information')
+            msg.exec_()
+
+
+        except:
+            msg = MassageWindow(title = 'Playlist Downloader',
+                                text="Failed to download.",
+                                button = 'Abort',
+                                icon='Critical')
+            msg.exec_()
+
+    def fileDownloadClicked(self):
+        type = self.types_widget.currentText()
+        path = self.filename_edit.text()
+        try:
+            file_parser(path,type)
+
+            msg = MassageWindow(title = 'file Downloader',
+                                text="Succesfully downloaded.",
+                                button = 'Ok',
+                                icon='Information')
+            msg.exec_()
+
+
+        except:
+            msg = MassageWindow(title = 'file Downloader',
                                 text="Failed to download.",
                                 button = 'Abort',
                                 icon='Critical')
