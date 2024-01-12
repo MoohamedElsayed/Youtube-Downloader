@@ -17,7 +17,8 @@ class MainWindow(QMainWindow):
     def initUI(self):
 
         self.setWindowTitle('Youtube Downloader')
-        self.setFixedSize(QSize(600,500))
+        self.setMinimumSize(QSize(600,600))
+        self.setMaximumSize(QSize(900,900))
         # Initalizing the download type layout
         self.download_type_layout = self.initTypeLayout()
 
