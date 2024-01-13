@@ -1,4 +1,5 @@
 from pytube import YouTube, Playlist
+import os
 
 # Function download the specified youtube url weather audio or video
 def downloadURL(url, type):
@@ -30,7 +31,9 @@ def downloadURL(url, type):
     # Downloading the best Stream if found
     if best_stream: 
         name = video_title + extention
-        best_stream.download(filename=name)
+        download_dir = os.path.join(os.getcwd(),'Downloads')
+        os.makedirs(download_dir, exist_ok=True)
+        best_stream.download(filename=name, output_path= download_dir)
     
 
 # Function to parse a txt file that contains urls of videos 
