@@ -1,7 +1,7 @@
 # Youtube Downloader
 
 ## Description
-Youtube Downloader is a Python-based project that allows users to download videos from youtube whether as video (.mp4) or audio (.mp3) format.    
+Youtube Downloader is a Python-based project that allows users to download videos from youtube whether as video (.mp4) or audio (.mp3) formats.    
 You can download a single video, a playlist or a text file with a bunch of videos URLs in it with one click.    
 The project features a GUI that enables users to easily download from youtube into their local machine.    
 
