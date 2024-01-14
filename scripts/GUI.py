@@ -4,7 +4,7 @@ from PyQt5 import  QtGui
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QMessageBox
 from PyQt5.QtWidgets import QComboBox, QLineEdit, QPushButton, QFileDialog
-from PyQt5.QtWidgets import QHBoxLayout, QLabel, QVBoxLayout, QFrame, QDialog
+from PyQt5.QtWidgets import QHBoxLayout, QLabel, QVBoxLayout, QFrame
 from PyQt5.QtCore import QSize
 from .Functions import downloadURL, playlist_parser, file_parser
 
@@ -19,6 +19,9 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('Youtube Downloader')
         self.setMinimumSize(QSize(600,600))
         self.setMaximumSize(QSize(900,900))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("scripts\icon.jpeg"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.setWindowIcon(icon)
         # Initalizing the download type layout
         self.download_type_layout = self.initTypeLayout()
 
